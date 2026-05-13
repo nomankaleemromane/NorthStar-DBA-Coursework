@@ -1,107 +1,103 @@
-# NorthStar DBA Coursework
+# Notebooks Directory
 
-This repository contains the NorthStar DBA coursework case study dataset and analysis notebooks. The project models a mobility and logistics operation with customers, orders, deliveries, drivers, vehicles, hubs, incidents, complaints, and digital app events.
+This folder contains the analysis notebooks for the NorthStar DBA coursework case study. The notebooks demonstrate the same case study from three database and analytics perspectives: Python data processing, relational SQL in R, and MongoDB document database operations.
 
-The purpose of the repository is to demonstrate practical database administration and data management skills: understanding raw operational data, identifying data quality issues, preparing cleaned datasets, creating relational structures, running SQL operations, modelling selected data for MongoDB, and using indexes or query design to improve access patterns.
+For the assignment, these notebooks are the executable evidence of the methodology. They show how the data was inspected, cleaned, loaded into database systems, queried, analysed, and optimised.
 
-The repository is organised to support the full data workflow:
+## Coursework Role
 
-1. Review the original CSV datasets.
-2. Clean and standardise the data.
-3. Analyse the cleaned data using Python, R/SQL, and MongoDB.
-4. Demonstrate relational and document database operations for a DBA coursework scenario.
-
-## Repository Structure
-
-| Path | Purpose |
+| Requirement | Notebook Evidence |
 | --- | --- |
-| `dataset/` | Original raw CSV files used as the starting point for analysis. |
-| `cleaned_dataset/` | Cleaned CSV files after standardisation and missing-value handling. |
-| `notebooks/` | Jupyter notebooks for Python data processing, R/SQL analysis, and MongoDB operations. |
-| `README.md` files | Documentation for the project and each major folder. |
+| Data profiling and cleaning | Python notebook performs EDA, missing-value review, standardisation, integration, and derived columns. |
+| Relational database implementation | R notebook creates SQLite tables and demonstrates SQL operations. |
+| SQL CRUD and analytics | R notebook includes `SELECT`, `INSERT`, `UPDATE`, `DELETE`, aggregate queries, and business interpretation. |
+| NoSQL implementation | MongoDB notebook loads cleaned data into MongoDB collections. |
+| Query optimisation | R and MongoDB notebooks include optimisation/indexing concepts. |
+| Reporting and insight | Python and R notebooks produce statistical summaries and operational analysis. |
 
-## Coursework Scope
+## Notebook Overview
 
-This repository supports the main areas expected in a DBA coursework assignment:
+| Notebook | Main Purpose | Cells |
+| --- | --- | ---: |
+| `North_Start_DBA_Case_study_Python.ipynb` | Data import, EDA, cleaning, integration, statistical analysis, and visualisation. | 50 |
+| `North_Start_DBA_Case_study_R.ipynb` | SQLite database creation, SQL CRUD operations, SQL analytics, R transformations, and query optimisation. | 96 |
+| `North_Start_DBA_Case_study_MongoDB.ipynb` | MongoDB Atlas connection, collection loading, CRUD operations, aggregation, and indexing. | 52 |
 
-| Coursework Area | Repository Evidence |
+## Recommended Execution Order
+
+1. `North_Start_DBA_Case_study_Python.ipynb`
+2. `North_Start_DBA_Case_study_R.ipynb`
+3. `North_Start_DBA_Case_study_MongoDB.ipynb`
+
+The Python notebook is the best starting point because it documents the raw data import, exploratory data analysis, cleaning, integration, and summary workflow. The R and MongoDB notebooks then use the cleaned data for database-oriented coursework tasks.
+
+## Python Notebook
+
+File: `North_Start_DBA_Case_study_Python.ipynb`
+
+This notebook focuses on data understanding and preparation.
+
+| Section | Description |
 | --- | --- |
-| Data understanding | Raw datasets, data dictionary, schema summaries, and relationship mapping. |
-| Data quality review | Missing-value checks, inconsistent category values, and raw-to-cleaned comparison. |
-| Data preparation | Cleaned CSV files with standardised zones and handled missing values. |
-| Relational database work | R notebook using SQLite tables, joins, CRUD operations, aggregation, and optimisation. |
-| NoSQL database work | MongoDB notebook using collections, document insertion, CRUD, aggregation, and indexing. |
-| Analytical reporting | Python and R analysis covering delivery performance, complaints, incidents, costs, ratings, and zone-level patterns. |
+| Setup and data import | Loads the NorthStar CSV files for analysis. |
+| Exploratory data analysis | Reviews table structure, unique categorical values, missing values, numeric distributions, and summary statistics. |
+| Data cleaning and integration | Standardises zone names, handles missing values, merges datasets, verifies data integrity, and creates derived columns. |
+| Statistical analysis | Uses Pandas and NumPy for delivery cost summaries, delivery failure rates by zone, and correlation analysis. |
+| Visualisation | Produces charts such as correlation heatmaps, pair plots, delivery outcome distributions, and complaint type distributions. |
+| Summary | Documents key analytical takeaways from the Python workflow. |
 
-## Dataset Overview
+## R and SQL Notebook
 
-The case study contains nine business datasets plus a data dictionary.
+File: `North_Start_DBA_Case_study_R.ipynb`
 
-| Dataset | Records | Main Entity | Description |
-| --- | ---: | --- | --- |
-| `customers.csv` | 650 | Customer | Customer profile, zone, loyalty, engagement, preferred channel, and account status. |
-| `orders.csv` | 1,250 | Order | Service orders with customer, zones, priority, booking channel, value, and special handling. |
-| `deliveries.csv` | 950 | Delivery | Dispatch and delivery outcomes linked to orders, drivers, vehicles, and hubs. |
-| `drivers.csv` | 170 | Driver | Driver workforce details, training score, rating, shift preference, and active status. |
-| `vehicles.csv` | 120 | Vehicle | Fleet details, battery health, odometer, maintenance status, and telematics version. |
-| `hubs.csv` | 8 | Hub | Operational hubs, zones, hub types, and capacity scores. |
-| `incidents.csv` | 280 | Incident | Operational incident records linked to deliveries. |
-| `complaints.csv` | 320 | Complaint | Customer complaints linked to customers and orders, including severity and compensation. |
-| `app_events.csv` | 640 | Digital Event | App and platform activity suitable for document-style MongoDB analysis. |
-| `data_dictionary.csv` | 9 | Metadata | File-level record counts and dataset descriptions. |
+This notebook focuses on relational database operations and analytical SQL.
 
-## Data Model
-
-The datasets are designed around a transport and delivery operation:
-
-| Relationship | Join Key |
+| Section | Description |
 | --- | --- |
-| Customers to orders | `customers.customer_id = orders.customer_id` |
-| Orders to deliveries | `orders.order_id = deliveries.order_id` |
-| Drivers to deliveries | `drivers.driver_id = deliveries.driver_id` |
-| Vehicles to deliveries | `vehicles.vehicle_id = deliveries.vehicle_id` |
-| Hubs to deliveries | `hubs.hub_id = deliveries.hub_id` |
-| Deliveries to incidents | `deliveries.delivery_id = incidents.delivery_id` |
-| Customers/orders to complaints | `customer_id` and `order_id` |
-| Customers/orders to app events | `customer_id` and optional `order_id` |
+| Data import | Loads the coursework CSV files from the repository. |
+| SQLite database creation | Creates a relational SQLite database and writes the CSV files as database tables. |
+| CRUD operations | Demonstrates `SELECT`, `INSERT`, `UPDATE`, and `DELETE` operations. |
+| Data cleaning in R | Standardises zone names, counts missing values, and converts date columns. |
+| Aggregate analysis | Summarises order value, driver ratings, complaint severity, and fleet information. |
+| Analytical queries | Performs business-focused SQL analysis using the connected tables. |
+| R transformations | Applies statistical analysis to driver performance, zone variation, and delivery cost distribution. |
+| Query optimisation | Demonstrates indexing or optimisation concepts for DBA coursework. |
 
-Some app events are not tied to a specific order, so `app_events.order_id` can be blank. This is expected for events such as route searches, chat interactions, or app usage before an order is created.
+## MongoDB Notebook
 
-## DBA Relevance
+File: `North_Start_DBA_Case_study_MongoDB.ipynb`
 
-The case study is useful for database administration because it contains both transactional and analytical requirements:
+This notebook focuses on document database loading and querying.
 
-| DBA Task | How It Appears in the Project |
+| Section | Description |
 | --- | --- |
-| Schema design | The CSV files can be converted into relational tables with primary and foreign key relationships. |
-| Data integrity | Joins between customers, orders, deliveries, drivers, vehicles, hubs, complaints, and incidents can be validated. |
-| Data cleaning | Missing values and inconsistent categories must be handled before reliable reporting. |
-| Query design | SQL queries are used for CRUD operations, aggregation, and business analysis. |
-| Query optimisation | Indexing is demonstrated in both SQL and MongoDB contexts. |
-| Document modelling | App events and operational records can be represented as MongoDB collections for NoSQL analysis. |
+| Library setup | Installs and imports `pymongo` and supporting libraries. |
+| Cleaned data loading | Loads cleaned CSV data for MongoDB insertion. |
+| MongoDB Atlas connection | Connects to a MongoDB Atlas database. |
+| Collection insertion | Inserts customers, drivers, vehicles, deliveries, and other case study data into MongoDB collections. |
+| CRUD operations | Demonstrates document retrieval, insertion, update, and deletion. |
+| Aggregation | Runs more complex queries for analytical insight. |
+| Indexing | Shows query optimisation through MongoDB indexes. |
 
-## Analysis Workflow
+## Data Used
 
-The notebooks show three complementary approaches:
+The notebooks use files from:
 
-| Notebook | Focus |
+| Folder | Usage |
 | --- | --- |
-| `North_Start_DBA_Case_study_Python.ipynb` | Data import, EDA, cleaning, integration, statistical analysis, and visualisation. |
-| `North_Start_DBA_Case_study_R.ipynb` | SQLite database creation, SQL CRUD operations, data cleaning in R, aggregate queries, analytical SQL, and query optimisation. |
-| `North_Start_DBA_Case_study_MongoDB.ipynb` | Loading cleaned data, connecting to MongoDB Atlas, inserting collections, CRUD operations, aggregation, and indexing. |
+| `../dataset/` | Raw source data for initial exploration and cleaning. |
+| `../cleaned_dataset/` | Cleaned data for SQL, MongoDB, and final analysis workflows. |
 
-## Recommended Usage
+## Notes for Running
 
-Use the repository in this order:
+- Open the notebooks in Jupyter Notebook, JupyterLab, VS Code, or another compatible notebook environment.
+- Run cells from top to bottom because later cells depend on imported data and variables created earlier.
+- The MongoDB notebook requires valid MongoDB Atlas connection credentials before database operations can run successfully.
+- If a notebook reads from GitHub URLs, confirm that the repository path and branch are still correct.
 
-1. Read `dataset/README.md` to understand the original raw data.
-2. Review `cleaned_dataset/README.md` to understand what changed during cleaning.
-3. Run or inspect `notebooks/North_Start_DBA_Case_study_Python.ipynb` first because it explains the data preparation and EDA.
-4. Use the R notebook for relational database and SQL analysis.
-5. Use the MongoDB notebook for document database modelling, CRUD, aggregation, and indexing.
+## Submission Notes
 
-## Notes
-
-- The cleaned files preserve the same record counts as the raw files.
-- Zone values in the raw data include inconsistent spellings and casing, such as `AIRPORT`, `CENTRAL`, `Ctr`, and `SOUTH`; these are standardised during cleaning.
-- The project is suitable for DBA coursework topics including data quality, schema understanding, relational joins, CRUD operations, aggregation, indexing, and multi-database analysis.
+- Use the Python notebook to explain the data cleaning and preparation stage.
+- Use the R notebook to evidence relational database design, SQL operations, joins, aggregations, and optimisation.
+- Use the MongoDB notebook to evidence document database loading, CRUD operations, aggregation pipelines, and indexing.
+- Reference `../dataset/README.md` and `../cleaned_dataset/README.md` when explaining why raw and cleaned data folders are both included.
