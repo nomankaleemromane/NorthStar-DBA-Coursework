@@ -18,7 +18,6 @@ The repository is organised to support the full data workflow:
 | `dataset/` | Original raw CSV files used as the starting point for analysis. |
 | `cleaned_dataset/` | Cleaned CSV files after standardisation and missing-value handling. |
 | `notebooks/` | Jupyter notebooks for Python data processing, R/SQL analysis, and MongoDB operations. |
-| Root CSV files | A copy of the original raw CSV files is also present in the main directory for quick access. The `dataset/` folder is the clearer source location for raw data. |
 | `README.md` files | Documentation for the project and each major folder. |
 
 ## Coursework Scope
