@@ -2,18 +2,15 @@
 
 This folder contains the prepared CSV files for the NorthStar Urban Mobility and Logistics **Databases and Analytics** coursework.
 
-The cleaned files keep the same business entities and record counts as the raw files, but values have been standardised and most missing fields have been handled. These files are intended for SQL analysis, R analytics, Python reporting, and MongoDB Atlas loading.
+The cleaned files keep the same business entities and record counts as the raw files, but values have been standardised and most missing fields have been handled.
 
-## Role in the Coursework
+## How the Notebooks Use This Folder
 
-| Coursework Need | How This Folder Supports It |
+| Notebook | Actual Use of `cleaned_dataset/` |
 | --- | --- |
-| Data preparation evidence | Shows the output of cleaning and standardisation work. |
-| SQL within R | Provides clean tables for SQLite loading, joins, CRUD operations, aggregation, and optimisation. |
-| R analytics | Provides consistent inputs for statistical summaries, comparisons, and visualisation. |
-| Python analytics | Provides prepared data for deeper analysis of delays, failures, costs, ratings, and complaints. |
-| MongoDB Atlas | Provides clean records for collection insertion, document queries, aggregation, and indexing. |
-| Reproducibility | Keeps cleaned data separate from the raw source files. |
+| `North_Start_DBA_Case_study_MongoDB.ipynb` | Reads all 10 cleaned CSV files from `NorthStar-DBA-Coursework/cleaned_dataset/` using `pd.read_csv()`. These data frames are converted into MongoDB documents and inserted into MongoDB Atlas collections. |
+| `North_Start_DBA_Case_study_Python.ipynb` | Does not read this folder directly in the current notebook code. It reads from `dataset/`, performs cleaning, and exports cleaned CSV files during notebook execution. |
+| `North_Start_DBA_Case_study_R.ipynb` | Does not read this folder directly in the current notebook code. It reads from `dataset/`, creates SQLite tables, then performs cleaning and table overwrites inside the notebook. |
 
 ## Files
 
@@ -50,16 +47,22 @@ Some blanks remain because they represent real business conditions rather than s
 | `deliveries_cleaned.csv` | `delivery_completed_at` | 19 | Failed or incomplete deliveries may not have a completion timestamp. |
 | `incidents_cleaned.csv` | `resolved_hours` | 17 | Open or unresolved incidents may not have a resolution duration yet. |
 
-## Analysis Use
+## MongoDB Document Inputs
 
-Use this folder when:
+The MongoDB notebook uses these cleaned files to build collections:
 
-- loading data into SQLite for SQL within R;
-- producing R analytics and visualisations;
-- running Python analysis on prepared data;
-- loading MongoDB Atlas collections;
-- analysing delays, failures, complaints, incident patterns, service performance, route costs, and hub-level variation;
-- preparing final coursework outputs and business interpretation.
+| Cleaned Source File | MongoDB Use in the Notebook |
+| --- | --- |
+| `customers_cleaned.csv` | Builds `customers` documents with customer profile fields plus embedded matching orders, complaints, and app events. |
+| `drivers_cleaned.csv` | Builds `drivers` documents with driver profile fields plus matching deliveries and related incidents. |
+| `vehicles_cleaned.csv` | Builds `vehicles` documents with fleet fields plus related incidents from deliveries. |
+| `deliveries_cleaned.csv` | Builds `deliveries` documents with route, cost, proof-of-completion, status, and embedded delivery incidents. |
+| `app_events_cleaned.csv` | Inserts app event records into the `app_events` collection. |
+| `orders_cleaned.csv` | Embedded inside matching customer documents. |
+| `complaints_cleaned.csv` | Embedded inside matching customer documents. |
+| `incidents_cleaned.csv` | Embedded into related driver, vehicle, and delivery documents. |
+| `hubs_cleaned.csv` | Loaded into a data frame for reference with delivery and hub identifiers. |
+| `data_dictionary_cleaned.csv` | Loaded as metadata for the cleaned dataset. |
 
 ## Key Relationships
 
