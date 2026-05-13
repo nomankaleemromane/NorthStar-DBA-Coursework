@@ -42,7 +42,7 @@ File: `North_Start_DBA_Case_study_Python.ipynb`
 | Data cleaning and integration | Standardises zones, handles missing values, merges datasets, verifies integrity, and creates derived columns. |
 | Statistical analysis | Uses Pandas and NumPy to analyse delivery cost, failure rates, and correlations. |
 | Visualisation | Produces charts that support the analytical argument. |
-| Summary | Captures findings that can be used in the coursework report. |
+| Summary | Presents the main findings from the Python workflow. |
 
 ## R and SQL Notebook
 
@@ -77,7 +77,7 @@ File: `North_Start_DBA_Case_study_MongoDB.ipynb`
 | Folder | Usage |
 | --- | --- |
 | `../dataset/` | Raw source data for initial exploration and cleaning. |
-| `../cleaned_dataset/` | Prepared data for SQL, MongoDB, analytics, and final reporting. |
+| `../cleaned_dataset/` | Prepared data for SQL, MongoDB, analytics, and visualisation. |
 
 ## Notes for Running
 
