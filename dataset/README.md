@@ -1,99 +1,122 @@
-# Cleaned Dataset Directory
+# Raw Dataset Directory
 
-This folder contains cleaned versions of the NorthStar DBA coursework CSV files. The cleaned files keep the same business entities and record counts as the raw files, but values have been standardised and most missing fields have been handled.
+This folder contains the original CSV files for the NorthStar DBA coursework case study. These files should be treated as the raw source data before cleaning, standardisation, or transformation.
 
-Use these files for modelling, SQL analysis, MongoDB import, reporting, and visualisation.
+The raw data includes operational records for customers, orders, deliveries, drivers, vehicles, hubs, incidents, complaints, and mobile app events.
 
-For the coursework assignment, this directory represents the prepared dataset after data quality work has been completed. It should be used when demonstrating database loading, joins, CRUD operations, aggregation, indexing, and final analysis.
+For the coursework, this directory provides the evidence base for data profiling, schema discovery, data quality assessment, and relationship identification before the data is loaded into relational or NoSQL systems.
 
 ## Coursework Role
 
 | Requirement | How This Folder Supports It |
 | --- | --- |
-| Clean data submission | Provides standardised files ready for analysis and database loading. |
-| Data preparation evidence | Shows that raw data issues were reviewed and corrected where appropriate. |
-| Relational database design | Supplies clean tables for SQLite creation, joins, CRUD, and aggregate SQL. |
-| MongoDB modelling | Supplies prepared records for collection insertion and document queries. |
-| Analytical reporting | Provides reliable inputs for delivery, customer, driver, vehicle, incident, complaint, and app-event analysis. |
+| Source data review | Provides the original unmodified files used at the start of the assignment. |
+| Schema analysis | Shows the fields, keys, and business entities available for database design. |
+| Data quality assessment | Contains missing values and inconsistent categories that must be identified and cleaned. |
+| Relationship mapping | Provides IDs needed to connect customers, orders, deliveries, drivers, vehicles, hubs, incidents, complaints, and app events. |
+| Baseline comparison | Allows comparison against `cleaned_dataset/` to show what was changed during preparation. |
 
 ## Files
 
-| Raw File | Cleaned File | Records | Purpose |
-| --- | --- | ---: | --- |
-| `dataset/app_events.csv` | `app_events_cleaned.csv` | 640 | Cleaned digital event data for app behaviour and MongoDB-style analysis. |
-| `dataset/complaints.csv` | `complaints_cleaned.csv` | 320 | Cleaned customer complaint and compensation records. |
-| `dataset/customers.csv` | `customers_cleaned.csv` | 650 | Cleaned customer master data. |
-| `dataset/data_dictionary.csv` | `data_dictionary_cleaned.csv` | 9 | Cleaned metadata file. |
-| `dataset/deliveries.csv` | `deliveries_cleaned.csv` | 950 | Cleaned delivery outcome and cost records. |
-| `dataset/drivers.csv` | `drivers_cleaned.csv` | 170 | Cleaned driver workforce data. |
-| `dataset/hubs.csv` | `hubs_cleaned.csv` | 8 | Cleaned hub reference data. |
-| `dataset/incidents.csv` | `incidents_cleaned.csv` | 280 | Cleaned incident management data. |
-| `dataset/orders.csv` | `orders_cleaned.csv` | 1,250 | Cleaned order records. |
-| `dataset/vehicles.csv` | `vehicles_cleaned.csv` | 120 | Cleaned fleet asset records. |
+| File | Records | Columns | Description |
+| --- | ---: | --- | --- |
+| `app_events.csv` | 640 | 10 | Digital application events such as route searches, order tracking, ETA refreshes, chat events, and payment retries. |
+| `complaints.csv` | 320 | 10 | Customer complaint records with channel, severity, status, resolution time, and compensation amount. |
+| `customers.csv` | 650 | 9 | Customer profile data including age, zone, customer type, loyalty score, app engagement, and account status. |
+| `data_dictionary.csv` | 9 | 3 | File-level metadata containing record counts and short descriptions. |
+| `deliveries.csv` | 950 | 13 | Delivery operations data including driver, vehicle, hub, timing, status, distance, route overrides, ratings, and cost. |
+| `drivers.csv` | 170 | 8 | Driver workforce data including zone, employment type, experience, training, rating, shift preference, and active status. |
+| `hubs.csv` | 8 | 5 | Operational hub reference data with hub names, zones, hub types, and capacity scores. |
+| `incidents.csv` | 280 | 7 | Incident records linked to deliveries, including incident type, severity, status, and resolution hours. |
+| `orders.csv` | 1,250 | 11 | Order data including service type, creation time, zones, priority, value, booking channel, and special handling flag. |
+| `vehicles.csv` | 120 | 8 | Fleet asset data including vehicle type, assigned zone, battery health, odometer, maintenance status, and telematics version. |
 
-## Cleaning Summary
+## Schema Summary
 
-The cleaning process focuses on making the data more reliable for analysis while preserving the original row counts.
+### `customers.csv`
 
-| Cleaning Area | What Was Addressed |
+| Column | Meaning |
 | --- | --- |
-| Zone standardisation | Inconsistent zone values such as `AIRPORT`, `CENTRAL`, `Ctr`, and `SOUTH` were standardised for easier grouping and joining. |
-| Missing categorical values | Missing fields such as booking channel and preferred channel were handled. |
-| Missing numeric values | Fields such as loyalty score, training score, battery health, customer rating, and compensation amount were cleaned or imputed where appropriate. |
-| Date and timestamp readiness | Date/time fields are prepared for analysis in Python, R, SQL, and MongoDB workflows. |
-| Record preservation | No source table loses records during cleaning; raw and cleaned record counts match. |
+| `customer_id` | Unique customer identifier. |
+| `age` | Customer age. |
+| `home_zone` | Customer's home operating zone. |
+| `customer_type` | Customer segment: `Consumer`, `Enterprise`, or `SME`. |
+| `signup_date` | Date the customer joined. |
+| `loyalty_score` | Customer loyalty metric. |
+| `app_engagement_score` | Digital engagement metric. |
+| `preferred_channel` | Preferred contact or booking channel. |
+| `account_status` | Account state: `Active`, `Dormant`, or `Suspended`. |
 
-## Remaining Blank Values
+### `orders.csv`
 
-Some blank values remain because they represent valid business situations rather than simple data errors.
-
-| Cleaned File | Remaining Blank Field | Count | Reason |
-| --- | --- | ---: | --- |
-| `app_events_cleaned.csv` | `order_id` | 144 | Some app events occur before or outside a specific order. |
-| `deliveries_cleaned.csv` | `delivery_completed_at` | 19 | Failed or incomplete deliveries may not have a completion timestamp. |
-| `incidents_cleaned.csv` | `resolved_hours` | 17 | Open, escalated, or unresolved incidents may not have resolution duration yet. |
-
-## Recommended Use
-
-Use this folder when:
-
-- building the SQLite database in the R notebook;
-- loading collections into MongoDB;
-- running EDA and visualisation after cleaning;
-- joining operational tables across customers, orders, deliveries, drivers, vehicles, hubs, complaints, incidents, and app events;
-- preparing DBA coursework outputs where clean and consistent data is required.
-
-## Assignment Evidence
-
-The cleaned files help demonstrate these DBA skills:
-
-| Skill | Evidence in This Folder |
+| Column | Meaning |
 | --- | --- |
-| Data quality management | Missing values are reduced and inconsistent categorical values are standardised. |
-| Data integrity preparation | Identifier columns remain available for joins and relationship validation. |
-| Auditability | Cleaned filenames preserve the original table names with a `_cleaned` suffix. |
-| Reproducibility | Row counts match the raw files, making it clear that cleaning did not remove records. |
-| Database readiness | Tables are suitable for importing into SQLite and MongoDB workflows. |
+| `order_id` | Unique order identifier. |
+| `customer_id` | Customer who placed the order. |
+| `service_type` | Service category: `Business`, `Medical`, `Parcel`, `Passenger`, or `Retail`. |
+| `order_created_at` | Timestamp when the order was created. |
+| `promised_window_hours` | Promised service window in hours. |
+| `pickup_zone` | Pickup operating zone. |
+| `dropoff_zone` | Drop-off operating zone. |
+| `priority_level` | Order priority: `Critical`, `High`, `Medium`, or `Low`. |
+| `order_value` | Monetary value of the order. |
+| `booking_channel` | Booking source: `API`, `App`, `Phone`, or `Web`. |
+| `special_handling_flag` | Indicates whether special handling is required. |
 
-## Key Relationships
+### `deliveries.csv`
 
-| From | To | Key |
-| --- | --- | --- |
-| `customers_cleaned.csv` | `orders_cleaned.csv` | `customer_id` |
-| `orders_cleaned.csv` | `deliveries_cleaned.csv` | `order_id` |
-| `drivers_cleaned.csv` | `deliveries_cleaned.csv` | `driver_id` |
-| `vehicles_cleaned.csv` | `deliveries_cleaned.csv` | `vehicle_id` |
-| `hubs_cleaned.csv` | `deliveries_cleaned.csv` | `hub_id` |
-| `deliveries_cleaned.csv` | `incidents_cleaned.csv` | `delivery_id` |
-| `customers_cleaned.csv` and `orders_cleaned.csv` | `complaints_cleaned.csv` | `customer_id`, `order_id` |
-| `customers_cleaned.csv` and `orders_cleaned.csv` | `app_events_cleaned.csv` | `customer_id`, optional `order_id` |
+| Column | Meaning |
+| --- | --- |
+| `delivery_id` | Unique delivery identifier. |
+| `order_id` | Order linked to the delivery. |
+| `driver_id` | Driver assigned to the delivery. |
+| `vehicle_id` | Vehicle assigned to the delivery. |
+| `hub_id` | Hub responsible for dispatch or handling. |
+| `dispatch_time` | Dispatch timestamp. |
+| `delivery_completed_at` | Completion timestamp when available. |
+| `delivery_status` | Delivery outcome: `OnTime`, `Delayed`, or `Failed`. |
+| `route_distance_km` | Route distance in kilometres. |
+| `manual_route_override_count` | Number of manual route changes. |
+| `proof_of_completion_missing` | Indicates whether proof of completion is missing. |
+| `customer_rating_post_delivery` | Customer rating after delivery. |
+| `fuel_or_charge_cost` | Fuel or charging cost for the delivery. |
 
-## File Naming Convention
+### Other Tables
 
-Each cleaned file follows the pattern:
+| File | Key Columns |
+| --- | --- |
+| `drivers.csv` | `driver_id`, `base_zone`, `employment_type`, `years_experience`, `training_score`, `driver_rating`, `shift_preference`, `active_flag` |
+| `vehicles.csv` | `vehicle_id`, `vehicle_type`, `assigned_zone`, `commission_date`, `battery_health_pct`, `odometer_km`, `maintenance_status`, `telematics_version` |
+| `hubs.csv` | `hub_id`, `hub_name`, `zone`, `hub_type`, `capacity_score` |
+| `incidents.csv` | `incident_id`, `delivery_id`, `incident_type`, `reported_at`, `severity`, `resolution_status`, `resolved_hours` |
+| `complaints.csv` | `complaint_id`, `customer_id`, `order_id`, `complaint_type`, `channel`, `severity`, `created_at`, `status`, `resolution_days`, `compensation_amount` |
+| `app_events.csv` | `event_id`, `customer_id`, `order_id`, `event_timestamp`, `event_type`, `session_id`, `device_type`, `zone_context`, `api_latency_ms`, `success_flag` |
 
-```text
-<original_table_name>_cleaned.csv
-```
+## Raw Data Quality Notes
 
-For example, `orders.csv` becomes `orders_cleaned.csv`.
+These files intentionally contain data quality issues for coursework analysis:
+
+| File | Missing or inconsistent fields observed |
+| --- | --- |
+| `app_events.csv` | `order_id` is blank for 144 rows where the event is not linked to an order. |
+| `complaints.csv` | `compensation_amount` has missing values. |
+| `customers.csv` | `loyalty_score` and `preferred_channel` have missing values. Zone names use inconsistent casing and spelling. |
+| `deliveries.csv` | `delivery_completed_at` and `customer_rating_post_delivery` have missing values. |
+| `drivers.csv` | `training_score` has missing values. |
+| `incidents.csv` | `resolved_hours` is missing for some unresolved or open incidents. |
+| `orders.csv` | `booking_channel` has missing values. Pickup and drop-off zones contain inconsistent casing. |
+| `vehicles.csv` | `battery_health_pct` has missing values. |
+
+Use `cleaned_dataset/` for analysis that requires standardised values and cleaner missing-value handling.
+
+## Suggested DBA Checks
+
+When using this folder in the assignment, the following checks are useful:
+
+| Check | Example Fields |
+| --- | --- |
+| Primary key uniqueness | `customer_id`, `order_id`, `delivery_id`, `driver_id`, `vehicle_id`, `hub_id` |
+| Foreign key consistency | `orders.customer_id`, `deliveries.order_id`, `deliveries.driver_id`, `deliveries.vehicle_id`, `deliveries.hub_id` |
+| Missing-value review | `booking_channel`, `loyalty_score`, `training_score`, `battery_health_pct`, `customer_rating_post_delivery` |
+| Categorical standardisation | `home_zone`, `pickup_zone`, `dropoff_zone`, `zone_context`, `assigned_zone` |
+| Date/time validity | `signup_date`, `order_created_at`, `dispatch_time`, `delivery_completed_at`, `reported_at`, `created_at`, `event_timestamp` |
