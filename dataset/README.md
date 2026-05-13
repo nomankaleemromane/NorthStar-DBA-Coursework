@@ -2,17 +2,15 @@
 
 This folder contains the original CSV files for the NorthStar Urban Mobility and Logistics case study in the **Databases and Analytics** module.
 
-These files are the starting point for understanding the organisation's fragmented operational data. They support data overview, data quality assessment, relationship discovery, and comparison against the cleaned data.
+These files are the starting point for the Python and R notebooks. Both notebooks clone the repository from GitHub and read the CSV files from this folder.
 
-## Role in the Coursework
+## How the Notebooks Use This Folder
 
-| Coursework Need | How This Folder Supports It |
+| Notebook | Actual Use of `dataset/` |
 | --- | --- |
-| Data overview | Provides the original files used to describe the case study data. |
-| Problem identification | Contains delays, failures, complaints, incidents, route data, hub data, and app events needed to investigate NorthStar's challenges. |
-| Data quality analysis | Includes missing values and inconsistent categories that are handled during preparation. |
-| Integration planning | Provides keys for linking customers, orders, deliveries, drivers, vehicles, hubs, complaints, incidents, and app events. |
-| Baseline for cleaning | Allows clear comparison with the prepared files in `cleaned_dataset/`. |
+| `North_Start_DBA_Case_study_Python.ipynb` | Reads all 10 CSV files from `NorthStar-DBA-Coursework/dataset/` using `pd.read_csv()`. The notebook performs EDA, standardises zones, fills selected missing values, merges tables, creates derived fields, and exports cleaned CSV files during runtime. |
+| `North_Start_DBA_Case_study_R.ipynb` | Reads all 10 CSV files from `NorthStar-DBA-Coursework/dataset/` using `read.csv()`. The notebook writes these data frames into an in-memory SQLite database, runs SQL operations, performs cleaning in R/SQL, and overwrites the SQLite tables with cleaned versions. |
+| `North_Start_DBA_Case_study_MongoDB.ipynb` | Does not load this folder directly. It loads prepared files from `cleaned_dataset/`. |
 
 ## Files
 
@@ -42,7 +40,7 @@ These files are the starting point for understanding the organisation's fragment
 | Customers/orders to complaints | `customer_id`, `order_id` |
 | Customers/orders to app events | `customer_id`, optional `order_id` |
 
-## Data Quality Issues to Discuss
+## Data Quality Issues Used in Notebook Cleaning
 
 | File | Issue Observed |
 | --- | --- |
@@ -55,14 +53,17 @@ These files are the starting point for understanding the organisation's fragment
 | `orders.csv` | `booking_channel` has missing values; pickup and drop-off zones contain inconsistent casing. |
 | `vehicles.csv` | `battery_health_pct` has missing values. |
 
-## Suggested Analysis Checks
+## Notebook Cleaning and Validation Steps
 
-| Check | Example Columns |
+| Step in Notebook Workflow | Columns or Tables Involved |
 | --- | --- |
-| Unique identifiers | `customer_id`, `order_id`, `delivery_id`, `driver_id`, `vehicle_id`, `hub_id` |
-| Join consistency | `orders.customer_id`, `deliveries.order_id`, `deliveries.driver_id`, `deliveries.vehicle_id`, `deliveries.hub_id` |
-| Missing values | `booking_channel`, `loyalty_score`, `training_score`, `battery_health_pct`, `customer_rating_post_delivery` |
-| Category consistency | `home_zone`, `pickup_zone`, `dropoff_zone`, `zone_context`, `assigned_zone` |
-| Time fields | `signup_date`, `order_created_at`, `dispatch_time`, `delivery_completed_at`, `reported_at`, `created_at`, `event_timestamp` |
+| Zone standardisation in Python | `customers.home_zone`, `orders.pickup_zone`, `orders.dropoff_zone`, `drivers.base_zone`, `vehicles.assigned_zone`, `app_events.zone_context` |
+| Missing-value handling in Python | `customers.loyalty_score`, `customers.preferred_channel`, `orders.booking_channel`, `deliveries.customer_rating_post_delivery`, `drivers.training_score`, `vehicles.battery_health_pct`, `complaints.compensation_amount` |
+| Consolidated Python merge | `orders`, `deliveries`, `customers`, `complaints`, `drivers`, `vehicles`, `hubs` |
+| Duplicate prevention during Python merge | `complaints` is deduplicated by `order_id` before joining so each order remains one row in the consolidated dataframe. |
+| Integrity verification in Python | Row count is checked against 1,250 original orders; duplicate `order_id` values and delivery/complaint/driver/vehicle/hub coverage are reviewed. |
+| SQLite loading in R | All 10 raw CSV files are written into SQLite tables using `dbWriteTable()`. |
+| Empty-string cleanup in R | Blank values are converted to `NULL` in the SQLite workflow. |
+| Datetime conversion in R | `signup_date`, `order_created_at`, `dispatch_time`, `delivery_completed_at`, `created_at`, `reported_at`, `event_timestamp` |
 
-Use `cleaned_dataset/` for the prepared version of this data after cleaning and standardisation.
+The prepared versions used by the MongoDB notebook are stored in `cleaned_dataset/`.
