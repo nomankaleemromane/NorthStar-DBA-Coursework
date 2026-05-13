@@ -1,79 +1,65 @@
 # Cleaned Dataset Directory
 
-This folder contains cleaned versions of the NorthStar DBA coursework CSV files. The cleaned files keep the same business entities and record counts as the raw files, but values have been standardised and most missing fields have been handled.
+This folder contains the prepared CSV files for the NorthStar Urban Mobility and Logistics **Databases and Analytics** coursework.
 
-Use these files for modelling, SQL analysis, MongoDB import, reporting, and visualisation.
+The cleaned files keep the same business entities and record counts as the raw files, but values have been standardised and most missing fields have been handled. These files are intended for SQL analysis, R analytics, Python reporting, and MongoDB Atlas loading.
 
-For the coursework assignment, this directory represents the prepared dataset after data quality work has been completed. It should be used when demonstrating database loading, joins, CRUD operations, aggregation, indexing, and final analysis.
+## Role in the Coursework
 
-## Coursework Role
-
-| Requirement | How This Folder Supports It |
+| Coursework Need | How This Folder Supports It |
 | --- | --- |
-| Clean data submission | Provides standardised files ready for analysis and database loading. |
-| Data preparation evidence | Shows that raw data issues were reviewed and corrected where appropriate. |
-| Relational database design | Supplies clean tables for SQLite creation, joins, CRUD, and aggregate SQL. |
-| MongoDB modelling | Supplies prepared records for collection insertion and document queries. |
-| Analytical reporting | Provides reliable inputs for delivery, customer, driver, vehicle, incident, complaint, and app-event analysis. |
+| Data preparation evidence | Shows the output of cleaning and standardisation work. |
+| SQL within R | Provides clean tables for SQLite loading, joins, CRUD operations, aggregation, and optimisation. |
+| R analytics | Provides consistent inputs for statistical summaries, comparisons, and visualisation. |
+| Python analytics | Provides prepared data for deeper analysis of delays, failures, costs, ratings, and complaints. |
+| MongoDB Atlas | Provides clean records for collection insertion, document queries, aggregation, and indexing. |
+| Reproducibility | Keeps cleaned data separate from the raw source files. |
 
 ## Files
 
 | Raw File | Cleaned File | Records | Purpose |
 | --- | --- | ---: | --- |
-| `dataset/app_events.csv` | `app_events_cleaned.csv` | 640 | Cleaned digital event data for app behaviour and MongoDB-style analysis. |
-| `dataset/complaints.csv` | `complaints_cleaned.csv` | 320 | Cleaned customer complaint and compensation records. |
-| `dataset/customers.csv` | `customers_cleaned.csv` | 650 | Cleaned customer master data. |
-| `dataset/data_dictionary.csv` | `data_dictionary_cleaned.csv` | 9 | Cleaned metadata file. |
-| `dataset/deliveries.csv` | `deliveries_cleaned.csv` | 950 | Cleaned delivery outcome and cost records. |
-| `dataset/drivers.csv` | `drivers_cleaned.csv` | 170 | Cleaned driver workforce data. |
-| `dataset/hubs.csv` | `hubs_cleaned.csv` | 8 | Cleaned hub reference data. |
-| `dataset/incidents.csv` | `incidents_cleaned.csv` | 280 | Cleaned incident management data. |
-| `dataset/orders.csv` | `orders_cleaned.csv` | 1,250 | Cleaned order records. |
-| `dataset/vehicles.csv` | `vehicles_cleaned.csv` | 120 | Cleaned fleet asset records. |
+| `dataset/app_events.csv` | `app_events_cleaned.csv` | 640 | Prepared platform event data for app interaction and NoSQL analysis. |
+| `dataset/complaints.csv` | `complaints_cleaned.csv` | 320 | Prepared complaint data for severity, resolution, and compensation analysis. |
+| `dataset/customers.csv` | `customers_cleaned.csv` | 650 | Prepared customer master data. |
+| `dataset/data_dictionary.csv` | `data_dictionary_cleaned.csv` | 9 | Prepared file-level metadata. |
+| `dataset/deliveries.csv` | `deliveries_cleaned.csv` | 950 | Prepared delivery outcome, route, rating, and cost data. |
+| `dataset/drivers.csv` | `drivers_cleaned.csv` | 170 | Prepared driver workforce data. |
+| `dataset/hubs.csv` | `hubs_cleaned.csv` | 8 | Prepared hub reference data. |
+| `dataset/incidents.csv` | `incidents_cleaned.csv` | 280 | Prepared incident and exception data. |
+| `dataset/orders.csv` | `orders_cleaned.csv` | 1,250 | Prepared order data. |
+| `dataset/vehicles.csv` | `vehicles_cleaned.csv` | 120 | Prepared vehicle and fleet data. |
 
 ## Cleaning Summary
 
-The cleaning process focuses on making the data more reliable for analysis while preserving the original row counts.
-
 | Cleaning Area | What Was Addressed |
 | --- | --- |
-| Zone standardisation | Inconsistent zone values such as `AIRPORT`, `CENTRAL`, `Ctr`, and `SOUTH` were standardised for easier grouping and joining. |
+| Zone standardisation | Inconsistent zone values such as `AIRPORT`, `CENTRAL`, `Ctr`, and `SOUTH` were standardised for grouping and joins. |
 | Missing categorical values | Missing fields such as booking channel and preferred channel were handled. |
 | Missing numeric values | Fields such as loyalty score, training score, battery health, customer rating, and compensation amount were cleaned or imputed where appropriate. |
-| Date and timestamp readiness | Date/time fields are prepared for analysis in Python, R, SQL, and MongoDB workflows. |
+| Date and timestamp readiness | Date/time fields were prepared for Python, R, SQL, and MongoDB workflows. |
 | Record preservation | No source table loses records during cleaning; raw and cleaned record counts match. |
 
-## Remaining Blank Values
+## Remaining Valid Blanks
 
-Some blank values remain because they represent valid business situations rather than simple data errors.
+Some blanks remain because they represent real business conditions rather than simple data errors.
 
-| Cleaned File | Remaining Blank Field | Count | Reason |
+| Cleaned File | Remaining Blank Field | Count | Interpretation |
 | --- | --- | ---: | --- |
 | `app_events_cleaned.csv` | `order_id` | 144 | Some app events occur before or outside a specific order. |
 | `deliveries_cleaned.csv` | `delivery_completed_at` | 19 | Failed or incomplete deliveries may not have a completion timestamp. |
-| `incidents_cleaned.csv` | `resolved_hours` | 17 | Open, escalated, or unresolved incidents may not have resolution duration yet. |
+| `incidents_cleaned.csv` | `resolved_hours` | 17 | Open or unresolved incidents may not have a resolution duration yet. |
 
-## Recommended Use
+## Analysis Use
 
 Use this folder when:
 
-- building the SQLite database in the R notebook;
-- loading collections into MongoDB;
-- running EDA and visualisation after cleaning;
-- joining operational tables across customers, orders, deliveries, drivers, vehicles, hubs, complaints, incidents, and app events;
-- preparing DBA coursework outputs where clean and consistent data is required.
-
-## Assignment Evidence
-
-The cleaned files help demonstrate these DBA skills:
-
-| Skill | Evidence in This Folder |
-| --- | --- |
-| Data quality management | Missing values are reduced and inconsistent categorical values are standardised. |
-| Data integrity preparation | Identifier columns remain available for joins and relationship validation. |
-| Auditability | Cleaned filenames preserve the original table names with a `_cleaned` suffix. |
-| Reproducibility | Row counts match the raw files, making it clear that cleaning did not remove records. |
-| Database readiness | Tables are suitable for importing into SQLite and MongoDB workflows. |
+- loading data into SQLite for SQL within R;
+- producing R analytics and visualisations;
+- running Python analysis on prepared data;
+- loading MongoDB Atlas collections;
+- analysing delays, failures, complaints, incident patterns, service performance, route costs, and hub-level variation;
+- preparing final coursework outputs and business interpretation.
 
 ## Key Relationships
 
@@ -87,13 +73,3 @@ The cleaned files help demonstrate these DBA skills:
 | `deliveries_cleaned.csv` | `incidents_cleaned.csv` | `delivery_id` |
 | `customers_cleaned.csv` and `orders_cleaned.csv` | `complaints_cleaned.csv` | `customer_id`, `order_id` |
 | `customers_cleaned.csv` and `orders_cleaned.csv` | `app_events_cleaned.csv` | `customer_id`, optional `order_id` |
-
-## File Naming Convention
-
-Each cleaned file follows the pattern:
-
-```text
-<original_table_name>_cleaned.csv
-```
-
-For example, `orders.csv` becomes `orders_cleaned.csv`.
