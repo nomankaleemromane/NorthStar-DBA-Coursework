@@ -36,12 +36,12 @@ flowchart LR
 
 ## Repository Structure
 
-| Location | Contents | Assignment Purpose |
+| Location | Contents | How It Is Used in This Repository |
 | --- | --- | --- |
-| [`dataset/`](dataset/) | Original raw CSV files | Starting point for data overview, quality checks, relationship discovery, and problem identification. |
-| [`cleaned_dataset/`](cleaned_dataset/) | Cleaned CSV files | Prepared data for analysis, SQL queries, MongoDB loading, charts, and final interpretation. |
-| [`notebooks/`](notebooks/) | Python, R/SQL, and MongoDB notebooks | Executable coursework evidence showing processing, analysis, querying, and optimisation. |
-| Folder `README.md` files | Documentation for each major folder | Helps the repository remain clear, reproducible, and easy to review. |
+| [`dataset/`](dataset/) | Original raw CSV files | Loaded directly by the Python and R notebooks after cloning the GitHub repository. |
+| [`cleaned_dataset/`](cleaned_dataset/) | Prepared cleaned CSV files | Loaded directly by the MongoDB notebook before documents are built and inserted into MongoDB Atlas. |
+| [`notebooks/`](notebooks/) | Python, R/SQL, and MongoDB notebooks | Contains the actual workflows for cleaning, analysis, SQLite work, MongoDB modelling, and optimisation. |
+| Folder `README.md` files | Folder-level documentation | Describes the files in each folder and how the notebooks reference them. |
 
 ## Assignment Requirements Covered
 
@@ -68,6 +68,23 @@ The coursework is not just a tool demonstration. The analysis is organised aroun
 | Why do costs vary across routes, hubs, and services? | `deliveries`, `orders`, `vehicles`, `hubs` |
 | Which zones, services, or operational areas show the highest risk? | Zone fields across customers, orders, deliveries, vehicles, hubs, and app events |
 | How can data architecture support better decisions? | Relational SQL analysis plus MongoDB modelling for complaints, exceptions, and event histories |
+
+## Actual Notebook Data Flow
+
+```mermaid
+flowchart TD
+    A[dataset/*.csv] --> B[Python notebook]
+    A --> C[R notebook]
+    B --> D[Cleaning, integration, derived columns, visualisation]
+    B --> E[Runtime export of *_cleaned.csv files]
+    C --> F[SQLite in-memory database]
+    C --> G[SQL CRUD, cleaning, joins, analytics, indexing]
+    H[cleaned_dataset/*_cleaned.csv] --> I[MongoDB notebook]
+    I --> J[MongoDB Atlas collections]
+    J --> K[Document CRUD, aggregation, indexing]
+```
+
+The Python notebook reads the raw files from `dataset/`, performs cleaning and analysis, and exports cleaned CSV files in the notebook runtime. The R notebook also reads from `dataset/`, creates an in-memory SQLite database, performs SQL operations, then overwrites the SQLite tables after in-notebook cleaning. The MongoDB notebook reads the prepared files from `cleaned_dataset/` and uses them to build MongoDB documents.
 
 ## Dataset Inventory
 
@@ -122,4 +139,4 @@ Some app events are not attached to an order. For example, a customer can search
 
 - The cleaned files preserve the same record counts as the raw files.
 - Raw data includes missing values and inconsistent zone naming, which are part of the data quality challenge.
-- The repository is designed to support a coursework report where every technical output should be interpreted in business terms.
+- The documentation reflects the notebook file paths and workflows used in the repository.
