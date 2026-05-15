@@ -50,7 +50,7 @@ flowchart LR
 | Problem understanding | Repository overview, dataset descriptions, and notebook interpretations. |
 | Data overview | `dataset/README.md`, `data_dictionary.csv`, and schema summaries. |
 | Data quality and integration challenges | Raw dataset notes and Python cleaning workflow. |
-| SQL within R | `North_Start_DBA_Case_study_R.ipynb` uses SQLite and SQL queries inside R. |
+| SQL within R | `North_Star_DBA_Case_study_R.ipynb` uses SQLite and SQL queries inside R. |
 | R analytics and visualisation | R notebook includes statistical summaries, comparisons, and analytical interpretation. |
 | Python data processing | Python notebook performs import, EDA, cleaning, integration, derived columns, statistics, and visualisation. |
 | MongoDB Atlas NoSQL design | MongoDB notebook loads cleaned data, creates collections, performs CRUD, aggregation, and indexing. |
@@ -123,9 +123,9 @@ Some app events are not attached to an order. For example, a customer can search
 
 | Notebook | Main Contribution |
 | --- | --- |
-| [`North_Start_DBA_Case_study_Python.ipynb`](notebooks/North_Start_DBA_Case_study_Python.ipynb) | Cleans and transforms data, explores missing values, creates integrated views, performs statistical analysis, and produces visual evidence. |
-| [`North_Start_DBA_Case_study_R.ipynb`](notebooks/North_Start_DBA_Case_study_R.ipynb) | Creates SQLite tables, runs SQL within R, demonstrates CRUD, performs aggregate and analytical queries, and supports business interpretation. |
-| [`North_Start_DBA_Case_study_MongoDB.ipynb`](notebooks/North_Start_DBA_Case_study_MongoDB.ipynb) | Demonstrates MongoDB Atlas collection loading, document operations, aggregation queries, and indexing for NoSQL analysis. |
+| [`North_Star_DBA_Case_study_Python.ipynb`](notebooks/North_Star_DBA_Case_study_Python.ipynb) | Cleans and transforms data, explores missing values, creates integrated views, performs statistical analysis, and produces visual evidence. |
+| [`North_Star_DBA_Case_study_R.ipynb`](notebooks/North_Star_DBA_Case_study_R.ipynb) | Creates SQLite tables, runs SQL within R, demonstrates CRUD, performs aggregate and analytical queries, and supports business interpretation. |
+| [`North_Star_DBA_Case_study_MongoDB.ipynb`](notebooks/North_Star_DBA_Case_study_MongoDB.ipynb) | Demonstrates MongoDB Atlas collection loading, document operations, aggregation queries, and indexing for NoSQL analysis. |
 
 ## Recommended Review Order
 
