@@ -78,7 +78,7 @@ flowchart TD
     B --> D[Cleaning, integration, derived columns, visualisation]
     B --> E[Runtime export of *_cleaned.csv files]
     C --> F[SQLite in-memory database]
-    C --> G[SQL CRUD, cleaning, joins, analytics, indexing]
+    C --> G[SQL CRUD, cleaning, joins, analytics, Visualisation, indexing]
     H[cleaned_dataset/*_cleaned.csv] --> I[MongoDB notebook]
     I --> J[MongoDB Atlas collections]
     J --> K[Document CRUD, aggregation, indexing]
