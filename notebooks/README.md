@@ -80,6 +80,7 @@ File: `North_Start_DBA_Case_study_MongoDB.ipynb`
 | Collection insertion | Creates collections for NorthStar operational data. |
 | CRUD operations | Demonstrates document retrieval, insertion, update, and deletion. |
 | Aggregation | Runs analytical queries over collections. |
+| Visualisation | Creates business-focused plots from MongoDB data using Matplotlib and Seaborn. |
 | Indexing | Shows query optimisation through MongoDB indexes. |
 
 ## MongoDB Collections Built from Cleaned Data
