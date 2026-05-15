@@ -81,7 +81,7 @@ flowchart TD
     C --> G[SQL CRUD, cleaning, joins, analytics, Visualisation, indexing]
     H[cleaned_dataset/*_cleaned.csv] --> I[MongoDB notebook]
     I --> J[MongoDB Atlas collections]
-    J --> K[Document CRUD, aggregation, indexing]
+    J --> K[Document CRUD, aggregation, Visualisation, indexing]
 ```
 
 The Python notebook reads the raw files from `dataset/`, performs cleaning and analysis, and exports cleaned CSV files in the notebook runtime. The R notebook also reads from `dataset/`, creates an in-memory SQLite database, performs SQL operations, then overwrites the SQLite tables after in-notebook cleaning. The MongoDB notebook reads the prepared files from `cleaned_dataset/` and uses them to build MongoDB documents.
