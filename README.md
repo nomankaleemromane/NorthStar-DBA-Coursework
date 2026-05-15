@@ -53,7 +53,7 @@ flowchart LR
 | SQL within R | `North_Star_DBA_Case_study_R.ipynb` uses SQLite and SQL queries inside R. |
 | R analytics and visualisation | R notebook includes statistical summaries, comparisons, and analytical interpretation. |
 | Python data processing | Python notebook performs import, EDA, cleaning, integration, derived columns, statistics, and visualisation. |
-| MongoDB Atlas NoSQL design | MongoDB notebook loads cleaned data, creates collections, performs CRUD, aggregation,Business related Visualisations and indexing. |
+| MongoDB Atlas NoSQL design | MongoDB notebook loads cleaned data, creates collections, performs CRUD, aggregation, Business related Visualisations and indexing. |
 | Query optimisation | R and MongoDB notebooks include indexing and optimisation concepts. |
 | GitHub reproducibility | Repository is structured with data folders, notebooks, and Markdown documentation. |
 
